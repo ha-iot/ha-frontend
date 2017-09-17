@@ -1,0 +1,32 @@
+.lamps-view {
+  display: flex;
+  justify-content: space-around;
+
+  $general_margin_top: 1em;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+
+    &__button {
+      width: 100%;
+      margin-top: $general_margin_top !important;
+    }
+  }
+
+  &__lamps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+
+    &__lamp {
+      margin-top: $general_margin_top;
+    }
+  }
+
+  &__lamps__lamp, &__buttons__button button {
+    height: 4em !important;
+  }
+}
