@@ -37,6 +37,12 @@ dotenvFiles.forEach(dotenvFile => {
   }
 })
 
+if (!process.env.SOCKET_HOST) {
+  throw new Error(
+    'The SOCKET_HOST environment variable is required but was not specified.'
+  )
+}
+
 // We support resolving modules according to `NODE_PATH`.
 // This lets you use absolute paths in imports inside large monorepos:
 // https://github.com/facebookincubator/create-react-app/issues/253.
@@ -68,7 +74,8 @@ function getClientEnvironment(publicUrl) {
       {
         // Useful for determining whether we’re running in production mode.
         // Most importantly, it switches React into the correct mode.
-        NODE_ENV: process.env.NODE_ENV || 'development',
+        NODE_ENV: NODE_ENV || 'development',
+        SOCKET_HOST: process.env.SOCKET_HOST,
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
         // This should only be used as an escape hatch. Normally you would put
