@@ -2,5 +2,6 @@
 .env
 
 # Directories
+build/
 .idea/
 node_modules/
