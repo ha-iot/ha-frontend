@@ -1,17 +1,35 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {AppBar} from 'material-ui'
 import {ActionInfoOutline} from 'material-ui/svg-icons/index'
 
 import './App.scss'
 import MenuTabs from './Tabs'
+import socket from './socket'
 
-class App extends Component {
+class App extends React.Component {
+  state = {
+    lamps: []
+  }
+
+  componentWillMount() {
+    socket.emit('specifyClient')
+    socket.on('lampsState',
+      /**
+       * @param {{number, isOn}[]} data
+       */
+      (data) => {
+        this.setState({lamps: data})
+      }
+    )
+    socket.emit('getLampsState')
+  }
+
   render() {
     const infoIcon = <ActionInfoOutline className="app-bar__info-icon"/>
     return (
       <div>
         <AppBar title="HAIoT" className="app-bar" showMenuIconButton={false} iconElementRight={infoIcon}/>
-        <MenuTabs/>
+        <MenuTabs lamps={this.state.lamps}/>
       </div>
     )
   }
