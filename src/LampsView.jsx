@@ -18,7 +18,7 @@ export default class LampsView extends React.Component {
       buttons.push(
         <RaisedButton key={i} className="lamps-view__buttons__button" onClick={lampAction} label={lampLabel} primary={true}/>
       )
-      let [LampIcon, color] = lamp.isOn ? [DeviceBrightnessHigh, 'yellow'] : [DeviceBrightnessLow, 'grey']
+      let [LampIcon, color] = lamp.isOn ? [DeviceBrightnessHigh, '#d8d800'/* yellow */] : [DeviceBrightnessLow, 'grey']
       lamps.push(<LampIcon key={i} className="lamps-view__lamps__lamp" style={{color}}/>)
     })
 
