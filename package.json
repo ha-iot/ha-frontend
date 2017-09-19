@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Jourdan Rodrigues",
   "license": "MIT",
+  "engines": {
+    "node": "8.1.4",
+    "npm": "5.4.1"
+  },
   "dependencies": {
     "autoprefixer": "7.1.2",
     "babel-core": "6.25.0",
