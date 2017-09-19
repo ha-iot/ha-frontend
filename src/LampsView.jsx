@@ -10,10 +10,10 @@ export default class LampsView extends React.Component {
     const buttons = []
     const lamps = []
     const lampActionFactory = lampNumber => () => {
-      socket.emit('arduinoAction', {target: lampNumber, action: 'toggle'})
+      socket.emit('client/lampsAction', {target: lampNumber, action: 'toggle'})
     }
     this.props.lamps.forEach((lamp, i) => {
-      const lampLabel = (lamp.isOn ? 'Desligar' : 'Ligar') + ' lâmpada ' + lamp.number
+      const lampLabel = `${lamp.isOn ? 'Desl' : 'L'}igar lâmpada ${lamp.number}`
       const lampAction = lampActionFactory(lamp.number)
       buttons.push(
         <RaisedButton key={i} className="lamps-view__buttons__button" onClick={lampAction} label={lampLabel} primary={true}/>

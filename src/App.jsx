@@ -12,8 +12,8 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    socket.emit('specifyClient')
-    socket.on('lampsState',
+    socket.emit('general/specifyClient')
+    socket.on('client/lampsState',
       /**
        * @param {{number, isOn}[]} data
        */
@@ -21,7 +21,7 @@ class App extends React.Component {
         this.setState({lamps: data})
       }
     )
-    socket.emit('getLampsState')
+    socket.emit('client/getLampsState')
   }
 
   render() {
