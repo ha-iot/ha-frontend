@@ -7,6 +7,7 @@ import socket from './socket'
 
 export default class LampsView extends React.Component {
   render() {
+    const height = '4em'
     const buttons = []
     const lamps = []
     const lampActionFactory = lampNumber => () => {
@@ -16,10 +17,10 @@ export default class LampsView extends React.Component {
       const lampLabel = `${lamp.isOn ? 'Desl' : 'L'}igar lâmpada ${lamp.number}`
       const lampAction = lampActionFactory(lamp.number)
       buttons.push(
-        <RaisedButton key={i} className="lamps-view__buttons__button" onClick={lampAction} label={lampLabel} primary={true}/>
+        <RaisedButton key={i} className="lamps-view__buttons__button" onClick={lampAction} label={lampLabel} primary={true} style={{height}}/>
       )
       let [LampIcon, color] = lamp.isOn ? [DeviceBrightnessHigh, '#d8d800'/* yellow */] : [DeviceBrightnessLow, 'grey']
-      lamps.push(<LampIcon key={i} className="lamps-view__lamps__lamp" style={{color}}/>)
+      lamps.push(<LampIcon key={i} className="lamps-view__lamps__lamp" style={{color, height}}/>)
     })
 
     return (
