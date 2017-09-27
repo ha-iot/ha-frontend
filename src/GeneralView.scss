@@ -8,7 +8,7 @@
   align-items: center;
   @mixin set-width() {
     @include for-desktop() {
-      width: 60%;
+      width: 40%;
     }
     @include for-mobile() {
       width: 100%;

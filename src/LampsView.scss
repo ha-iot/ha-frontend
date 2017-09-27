@@ -1,13 +1,25 @@
+@import 'mixins';
+
 .lamps-view {
   display: flex;
-  justify-content: space-around;
+  @include for-mobile() {
+    justify-content: space-around;
+  }
+  @include for-desktop() {
+    justify-content: center;
+  }
 
   $general_margin_top: 1em;
 
   &__buttons {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    @include for-mobile() {
+      width: 70%;
+    }
+    @include for-desktop() {
+      width: 30%;
+    }
 
     &__button {
       width: 100%;
@@ -25,7 +37,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 20%;
+    @include for-mobile() {
+      width: 20%;
+    }
+    @include for-desktop() {
+      width: 10%;
+    }
 
     &__lamp {
       margin-top: $general_margin_top;
