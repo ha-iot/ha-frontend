@@ -1,14 +1,29 @@
 import React from 'react'
-import {AppBar} from 'material-ui'
+import {AppBar, Snackbar} from 'material-ui'
 import {ActionInfoOutline} from 'material-ui/svg-icons/index'
 
 import './App.scss'
 import MenuTabs from './Tabs'
 import socket from './socket'
 
-class App extends React.Component {
-  state = {
-    lamps: []
+
+function _closeSnackbar() {
+  this.setState({snackbar: {open: false, message: ''}})
+}
+
+export default class App extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      lamps: [],
+      snackbar: {
+        open: false,
+        message: ''
+      }
+    }
+
+    this.closeSnackbar = _closeSnackbar.bind(this)
   }
 
   componentWillMount() {
@@ -21,7 +36,19 @@ class App extends React.Component {
         this.setState({lamps: data})
       }
     )
+    socket.on('client/response',
+      /**
+       * @param {{message: string}} data
+       */
+      (data) => {
+        this.showSnackbar(data.message)
+      }
+    )
     socket.emit('client/getLampsState')
+  }
+
+  showSnackbar(message) {
+    this.setState({snackbar: {open: true, message}})
   }
 
   render() {
@@ -30,9 +57,8 @@ class App extends React.Component {
       <div>
         <AppBar title="HAIoT" className="app-bar" showMenuIconButton={false} iconElementRight={infoIcon}/>
         <MenuTabs lamps={this.state.lamps}/>
+        <Snackbar autoHideDuration={4000} onRequestClose={this.closeSnackbar} {...this.state.snackbar}/>
       </div>
     )
   }
 }
-
-export default App
