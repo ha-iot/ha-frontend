@@ -6,8 +6,12 @@ import LampsView from './LampsView'
 import GeneralView from './GeneralView'
 
 export default class MenuTabs extends React.Component {
-  state = {
-    slideIndex: 0
+  constructor() {
+    super()
+
+    this.state = {
+      slideIndex: 0
+    }
   }
 
   handleChange = (value) => {
