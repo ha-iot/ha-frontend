@@ -1,0 +1,15 @@
+.no-lamps {
+  height: 14em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__icon {
+    font-size: 8em;
+  }
+
+  &__icon, &__message {
+    color: #666;
+  }
+}
