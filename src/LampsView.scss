@@ -2,6 +2,8 @@
 
 .lamps-view {
   display: flex;
+  min-height: 22em;
+  margin-top: 1em;
   @include for-mobile() {
     justify-content: space-around;
   }
@@ -9,11 +11,10 @@
     justify-content: center;
   }
 
-  $general_margin_top: 1em;
-
   &__buttons {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     @include for-mobile() {
       width: 70%;
     }
@@ -23,7 +24,6 @@
 
     &__button {
       width: 100%;
-      margin-top: $general_margin_top !important;
 
       button div div {
         display: flex;
@@ -36,16 +36,13 @@
   &__lamps {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     @include for-mobile() {
       width: 20%;
     }
     @include for-desktop() {
       width: 10%;
-    }
-
-    &__lamp {
-      margin-top: $general_margin_top;
     }
   }
 }

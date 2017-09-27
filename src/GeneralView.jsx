@@ -1,6 +1,5 @@
 import React from 'react'
-import {RaisedButton} from 'material-ui'
-import {DeviceBrightnessHigh, DeviceBrightnessLow} from 'material-ui/svg-icons/index'
+import {RaisedButton, IconButton} from 'material-ui'
 
 import './GeneralView.scss'
 import socket from './socket'
@@ -11,8 +10,12 @@ export default class LampsView extends React.Component {
     const height = '4em'
 
     lamps = this.props.lamps.map((lamp, i) => {
-      let [LampIcon, color] = lamp.isOn ? [DeviceBrightnessHigh, '#d8d800'/* yellow */] : [DeviceBrightnessLow, 'grey']
-      return <LampIcon key={i} className="general-view__lamps__lamp" style={{color, height}}/>
+      let [iconClass, color] = lamp.isOn ? ['brightness_high', '#d8d800'/* yellow */] : ['brightness_low', 'grey']
+      return (
+        <IconButton key={i} className="general-view__lamps__lamp" iconClassName='material-icons' iconStyle={{color, height}}>
+          {iconClass}
+        </IconButton>
+      )
     })
 
     const actionButtons = [
