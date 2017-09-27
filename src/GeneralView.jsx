@@ -28,8 +28,8 @@ export default class LampsView extends React.Component {
     const actionFactory = action => () => {
       socket.emit('client/lampsAction', {target: 'all', action})
     }
-    const buttons = actionButtons.map(({action, label}) =>
-      <RaisedButton className="general-view__buttons__button" onClick={actionFactory(action)} label={label} primary={true} disabled={!hasLamps} style={{height}}/>
+    const buttons = actionButtons.map(({action, label}, i) =>
+      <RaisedButton key={i} className="general-view__buttons__button" onClick={actionFactory(action)} label={label} primary={true} disabled={!hasLamps} style={{height}}/>
     )
 
     return (
