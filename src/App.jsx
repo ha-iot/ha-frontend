@@ -16,7 +16,9 @@ export default class App extends React.Component {
     super()
 
     this.state = {
-      lamps: [],
+      // On future definitions, "lamps" will be a simple list without the "raw" property. When I try to do
+      // "lamps.raw", "undefined" will be returned and we'll know the value came from the server.
+      lamps: Object.assign([], {raw: true}),
       snackbar: {
         open: false,
         message: ''
