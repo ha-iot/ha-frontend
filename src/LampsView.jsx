@@ -12,17 +12,22 @@ export default class LampsView extends React.Component {
     const lampActionFactory = lampNumber => () => {
       socket.emit('client/lampsAction', {target: lampNumber, action: 'toggle'})
     }
+    const greyColor = 'grey'
     this.props.lamps.forEach((lamp, i) => {
       const lampLabel = `${lamp.isOn ? 'Desl' : 'L'}igar lâmpada ${lamp.number}`
       const lampAction = lampActionFactory(lamp.number)
+      const buttonProps = {
+        primary: lamp.isOn,
+        backgroundColor: greyColor,
+        onClick: lampAction,
+        label: lampLabel,
+        style: {height}
+      }
       buttons.push(
-        <RaisedButton key={i} className="lamps-view__buttons__button" onClick={lampAction} label={lampLabel} primary={true} style={{height}}/>
+        <RaisedButton key={i} className="lamps-view__buttons__button" {...buttonProps}/>
       )
-      let [iconClass, color] = lamp.isOn ? ['brightness_high', '#d8d800'/* yellow */] : ['brightness_low', 'grey']
       lamps.push(
-        <IconButton key={i} className="lamps-view__lamps__lamp" iconStyle={{color, height}} iconClassName="material-icons">
-          {iconClass}
-        </IconButton>
+        <IconButton key={i} iconClassName="material-icons" iconStyle={{color: greyColor, height}}>info</IconButton>
       )
     })
 
