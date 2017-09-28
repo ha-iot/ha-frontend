@@ -2,7 +2,7 @@ import React from 'react'
 import {RaisedButton, IconButton} from 'material-ui'
 
 import './GeneralView.scss'
-import socket from './socket'
+import socket from '../socket'
 
 export default class LampsView extends React.Component {
   render() {

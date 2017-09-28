@@ -4,7 +4,7 @@ import {ActionInfoOutline} from 'material-ui/svg-icons/index'
 
 import './App.scss'
 import MenuTabs from './Tabs'
-import socket from './socket'
+import socket from '../socket'
 
 
 function _closeSnackbar() {
