@@ -1,6 +1,5 @@
 import React from 'react'
 import {RaisedButton, IconButton} from 'material-ui'
-import {DeviceBrightnessHigh, DeviceBrightnessLow} from 'material-ui/svg-icons/index'
 
 import './LampsView.scss'
 import socket from './socket'
