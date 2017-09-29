@@ -1,5 +1,6 @@
 import React from 'react'
 import {RaisedButton, IconButton} from 'material-ui'
+import {Link} from 'react-router-dom'
 
 import './LampsView.scss'
 import socket from '../socket'
@@ -27,7 +28,9 @@ export default class LampsView extends React.Component {
         <RaisedButton key={i} className="lamps-view__buttons__button" {...buttonProps}/>
       )
       lamps.push(
-        <IconButton key={i} iconClassName="material-icons" iconStyle={{color: greyColor, height}}>info</IconButton>
+        <Link key={i} to={'/lamps/' + lamp.number}>
+          <IconButton iconClassName="material-icons" iconStyle={{color: greyColor, height}}>info</IconButton>
+        </Link>
       )
     })
 

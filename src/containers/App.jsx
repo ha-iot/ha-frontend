@@ -1,6 +1,7 @@
 import React from 'react'
 import {AppBar, Snackbar} from 'material-ui'
 import {ActionInfoOutline} from 'material-ui/svg-icons/index'
+import {HashRouter, Route, Redirect} from 'react-router-dom'
 
 import './App.scss'
 import MenuTabs from './Tabs'
@@ -56,11 +57,16 @@ export default class App extends React.Component {
   render() {
     const infoIcon = <ActionInfoOutline className="app-bar__info-icon"/>
     return (
-      <div>
-        <AppBar title="HAIoT" className="app-bar" showMenuIconButton={false} iconElementRight={infoIcon}/>
-        <MenuTabs lamps={this.state.lamps}/>
-        <Snackbar autoHideDuration={4000} onRequestClose={this.closeSnackbar} {...this.state.snackbar}/>
-      </div>
+      <HashRouter>
+        <div>
+          <Route exact path="/" render={() => <Redirect to="/home"/>}/>
+          <Route path="/" render={
+            () => <AppBar title="HAIoT" className="app-bar" showMenuIconButton={false} iconElementRight={infoIcon}/>
+          }/>
+          <Route path="/home" render={() => <MenuTabs lamps={this.state.lamps}/>}/>
+          <Snackbar autoHideDuration={4000} onRequestClose={this.closeSnackbar} {...this.state.snackbar}/>
+        </div>
+      </HashRouter>
     )
   }
 }
