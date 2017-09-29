@@ -5,6 +5,7 @@ import {HashRouter, Route, Redirect} from 'react-router-dom'
 
 import './App.scss'
 import MenuTabs from './Tabs'
+import LampData from './LampData'
 import socket from '../socket'
 
 
@@ -33,7 +34,7 @@ export default class App extends React.Component {
     socket.emit('general/specifyClient')
     socket.on('client/lampsState',
       /**
-       * @param {{number, isOn}[]} data
+       * @param {{number, isOn, onSince}[]} data
        */
       (data) => {
         this.setState({lamps: data})
@@ -64,6 +65,7 @@ export default class App extends React.Component {
             () => <AppBar title="HAIoT" className="app-bar" showMenuIconButton={false} iconElementRight={infoIcon}/>
           }/>
           <Route path="/home" render={() => <MenuTabs lamps={this.state.lamps}/>}/>
+          <Route path="/lamps/:lampNumber" render={({match}) => <LampData lamps={this.state.lamps} match={match}/>}/>
           <Snackbar autoHideDuration={4000} onRequestClose={this.closeSnackbar} {...this.state.snackbar}/>
         </div>
       </HashRouter>
