@@ -7,19 +7,20 @@ import {NavigationArrowBack} from "material-ui/svg-icons/index"
 import './LampData.scss'
 
 function _getDateTimeDiff(dateSource) {
-  const dateDiff = Math.abs(new Date() - new Date(dateSource))
-  let seconds = Math.round(dateDiff / 1000)
+  const secondsDiff = new Date().getTime() - new Date(dateSource).getTime()
+  const _seconds = secondsDiff / 1000
+  let seconds = parseInt(_seconds, 10)
   let minutes, hours, days
   if (seconds >= 1) {
-    const _minutes = Math.round(seconds / 60)
+    let _minutes = parseInt(_seconds / 60, 10)
     if (_minutes >= 1) {
       seconds -= _minutes * 60
       minutes = _minutes
-      const _hours = Math.round(minutes / 60)
+      const _hours = parseInt(_minutes / 60, 10)
       if (_hours >= 1) {
         minutes -= _hours * 60
         hours = _hours
-        const _days = Math.round(hours / 24)
+        const _days = parseInt(_hours / 24, 10)
         if (_days >= 1) {
           hours -= _days * 24
           days = _days
@@ -27,10 +28,21 @@ function _getDateTimeDiff(dateSource) {
       }
     }
   }
-  return `${days ? `${days} days, ` : ''}${hours ? `${hours} hours, ` : ''}${minutes ? `${minutes} minutes and ` : ''}${seconds} seconds`
+  return (
+    (days ? `${days} day${_getPlural(days)}, ` : '') +
+    (hours ? `${hours} hour${_getPlural(hours)}, ` : '') +
+    (minutes ? `${minutes} minute${_getPlural(minutes)} and ` : '') +
+    `${seconds} second${_getPlural(seconds)}`
+  )
+  function _getPlural(value, plural) {
+    return value !== 1 ? plural || 's' : ''
+  }
 }
 
 function _getDateTimeInfo() {
+  /**
+   * @type {{isOn, number, onSince}}
+   */
   const lamp = this.props.lamps.find(({number}) => number === +this.props.match.params.lampNumber)
   // Check if "lamp" is valid because the app might open in this page
   // and might not been retrieved from socket yet.
