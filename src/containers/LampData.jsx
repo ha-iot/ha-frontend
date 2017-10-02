@@ -41,12 +41,12 @@ function _getDateTimeDiff(dateSource) {
 
 function _getDateTimeInfo() {
   /**
-   * @type {{isOn, number, onSince}}
+   * @type {{isOn, number, upTime}}
    */
   const lamp = this.props.lamps.find(({number}) => number === +this.props.match.params.lampNumber)
   // Check if "lamp" is valid because the app might open in this page
   // and might not been retrieved from socket yet.
-  return lamp ? `Lamp ${lamp.number} ${lamp.isOn ? 'on for ' + _getDateTimeDiff(lamp.onSince) : 'turned off'}.` : 'Waiting for data...'
+  return lamp ? `Lamp ${lamp.number} ${lamp.isOn ? 'on for ' + _getDateTimeDiff(lamp.upTime) : 'turned off'}.` : 'Waiting for data...'
 }
 
 class LampData extends React.Component {

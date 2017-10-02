@@ -34,7 +34,7 @@ export default class App extends React.Component {
     socket.emit('general/specifyClient')
     socket.on('client/lampsState',
       /**
-       * @param {{number, isOn, onSince}[]} data
+       * @param {{number, isOn, upTime}[]} data
        */
       (data) => {
         this.setState({lamps: data})
