@@ -1,11 +1,12 @@
 import React from 'react'
-import {RaisedButton, IconButton} from 'material-ui'
 import {Link} from 'react-router-dom'
+import {RaisedButton, IconButton} from 'material-ui'
+import {muiThemeable} from "material-ui/styles/index"
 
 import './LampsView.scss'
 import socket from '../socket'
 
-export default class LampsView extends React.Component {
+class LampsView extends React.Component {
   render() {
     const height = '4em'
     const buttons = []
@@ -29,7 +30,7 @@ export default class LampsView extends React.Component {
       )
       lamps.push(
         <Link key={i} to={'/lamps/' + lamp.number}>
-          <IconButton iconClassName="material-icons" iconStyle={{color: greyColor, height}}>info</IconButton>
+          <IconButton iconClassName="material-icons" iconStyle={{color: this.props.muiTheme.palette.primary1Color, height}}>info</IconButton>
         </Link>
       )
     })
@@ -46,3 +47,5 @@ export default class LampsView extends React.Component {
     )
   }
 }
+
+export default muiThemeable()(LampsView)
