@@ -1,6 +1,7 @@
 .back_button {
+  $distance: 2em;
+  left: $distance;
+  bottom: $distance;
   display: block;
   position: absolute;
-  bottom: 3em;
-  left: 3em;
 }
