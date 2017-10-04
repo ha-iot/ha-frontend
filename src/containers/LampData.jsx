@@ -6,6 +6,8 @@ import {NavigationArrowBack} from "material-ui/svg-icons/index"
 
 import './LampData.scss'
 
+const DATA_WAIT_MESSAGE = 'Esperando dados...'
+
 function _getDateTimeDiff(dateSource) {
   const secondsDiff = new Date().getTime() - new Date(dateSource).getTime()
   const _seconds = secondsDiff / 1000
@@ -29,10 +31,10 @@ function _getDateTimeDiff(dateSource) {
     }
   }
   return (
-    (days ? `${days} day${_getPlural(days)}, ` : '') +
-    (hours ? `${hours} hour${_getPlural(hours)}, ` : '') +
-    (minutes ? `${minutes} minute${_getPlural(minutes)} and ` : '') +
-    `${seconds} second${_getPlural(seconds)}`
+    (days ? `${days} dia${_getPlural(days)}, ` : '') +
+    (hours ? `${hours} hora${_getPlural(hours)}, ` : '') +
+    (minutes ? `${minutes} minuto${_getPlural(minutes)} e ` : '') +
+    `${seconds} segundo${_getPlural(seconds)}`
   )
   function _getPlural(value, plural) {
     return value !== 1 ? plural || 's' : ''
@@ -41,12 +43,13 @@ function _getDateTimeDiff(dateSource) {
 
 function _getDateTimeInfo() {
   /**
+   * This "find" must be done because a new lamp list is sent, not an object
    * @type {{isOn, number, upTime}}
    */
   const lamp = this.props.lamps.find(({number}) => number === +this.props.match.params.lampNumber)
   // Check if "lamp" is valid because the app might open in this page
   // and might not been retrieved from socket yet.
-  return lamp ? `Lamp ${lamp.number} ${lamp.isOn ? 'on for ' + _getDateTimeDiff(lamp.upTime) : 'turned off'}.` : 'Waiting for data...'
+  return lamp ? (lamp.isOn ? 'Ligada há ' + _getDateTimeDiff(lamp.upTime) : 'Desligada') + '.' : DATA_WAIT_MESSAGE
 }
 
 class LampData extends React.Component {
@@ -55,7 +58,7 @@ class LampData extends React.Component {
 
     this.getDateTimeInfo = _getDateTimeInfo.bind(this)
     this.state = {
-      datetimeInfo: 'Waiting data...',
+      datetimeInfo: DATA_WAIT_MESSAGE,
       intervalUpdateId: null
     }
   }
