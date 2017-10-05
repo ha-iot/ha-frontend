@@ -28,9 +28,13 @@ class LampsView extends React.Component {
       buttons.push(
         <RaisedButton key={i} className="lamps-view__buttons__button" {...buttonProps}/>
       )
+      const iconStyle = {
+        height,
+        color: lamp.isOn ? this.props.muiTheme.palette.primary1Color : greyColor
+      }
       lamps.push(
         <Link key={i} to={'/lamps/' + lamp.number}>
-          <IconButton iconClassName="material-icons" iconStyle={{color: this.props.muiTheme.palette.primary1Color, height}}>info</IconButton>
+          <IconButton iconClassName="material-icons" iconStyle={iconStyle}>info</IconButton>
         </Link>
       )
     })
