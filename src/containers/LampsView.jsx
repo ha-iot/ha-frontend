@@ -15,19 +15,18 @@ class LampsView extends React.Component {
       socket.emit('client/lampsAction', {target: lampNumber, action: 'toggle'})
     }
     const greyColor = 'grey'
+    /**
+     * @param {{isOn, label}} lamp
+     */
     this.props.lamps.forEach((lamp, i) => {
-      const lampLabel = `${lamp.isOn ? 'Desl' : 'L'}igar lâmpada ${lamp.number}`
-      const lampAction = lampActionFactory(lamp.number)
       const buttonProps = {
         primary: lamp.isOn,
         backgroundColor: greyColor,
-        onClick: lampAction,
-        label: lampLabel,
+        onClick: lampActionFactory(lamp.number),
+        label: `${lamp.isOn ? 'Desl' : 'L'}igar ${lamp.label}`,
         style: {height}
       }
-      buttons.push(
-        <RaisedButton key={i} className="lamps-view__buttons__button" {...buttonProps}/>
-      )
+      buttons.push(<RaisedButton key={i} className="lamps-view__buttons__button" {...buttonProps}/>)
       const iconStyle = {
         height,
         color: lamp.isOn ? this.props.muiTheme.palette.primary1Color : greyColor
