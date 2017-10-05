@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -32,24 +33,34 @@ const BORDER_STYLE = '1px solid ' + BACKGROUND_COLOR
 const Data = styled.span`
   min-height: 4em;
   display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   border-bottom: ${BORDER_STYLE};
   border-right: ${BORDER_STYLE};
   border-left: ${BORDER_STYLE};
-  justify-content: center;
-  align-items: center;
   border-bottom-left-radius: ${BORDER_RADIUS};
   border-bottom-right-radius: ${BORDER_RADIUS};
 `
 
 class Card extends React.Component {
   render() {
+    const data = [<span key={0}>{this.props.primaryData}</span>]
+    if (this.props.secondaryData) {
+      data.push(<span key={1}>{this.props.secondaryData}</span>)
+    }
     return (
       <Wrapper>
         <Label>{this.props.label}</Label>
-        <Data>{this.props.data}</Data>
+        <Data>{data}</Data>
       </Wrapper>
     )
   }
+}
+
+Card.propTypes = {
+  primaryData: PropTypes.string.isRequired,
+  secondaryData: PropTypes.string,
 }
 
 export default Card

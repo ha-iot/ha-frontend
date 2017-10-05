@@ -52,17 +52,6 @@ function _getDateTimeDiff(dateSource) {
   }
 }
 
-/**
- * @returns {string}
- * @private
- */
-function _getDateTimeInfo() {
-  const lamp = this.state.lamp
-  // Check if "lamp" is valid because the app might open in this page
-  // and might not been retrieved from socket yet.
-  return lamp && lamp.isOn ? _getDateTimeDiff(lamp.upTime) : '-'
-}
-
 class LampData extends React.Component {
   constructor(props) {
     super(props)
@@ -72,9 +61,9 @@ class LampData extends React.Component {
      * @returns {{isOn, number, upTime, label}}
      */
     this.getLamp = () => this.props.lamps.find(({number}) => number === +this.props.match.params.lampNumber)
-    this.getDateTimeInfo = _getDateTimeInfo.bind(this)
     this.state = {
       lamp: null,
+      datetime: '',
       datetimeInfo: '-',
       intervalUpdateId: null
     }
@@ -91,10 +80,18 @@ class LampData extends React.Component {
   }
 
   _updateState() {
-    this.setState({
-      lamp: this.getLamp(),
-      datetimeInfo: this.getDateTimeInfo()
-    })
+    const state = {lamp: this.getLamp()}
+    if (state.lamp && state.lamp.isOn) {
+      state.datetime = new Date(state.lamp.upTime).toISOString()
+        .replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1')
+        .replace('T', ' ')
+        .replace(/:\d{2}\..+/, '')
+      state.datetimeInfo = _getDateTimeDiff(state.lamp.upTime)
+    } else {
+      state.datetime = ''
+      state.datetimeInfo = '-'
+    }
+    this.setState(state)
   }
 
   componentWillUnmount() {
@@ -111,7 +108,7 @@ class LampData extends React.Component {
             this.state.lamp ?
               <Content>
                 <h1>{this.state.lamp.label}</h1>
-                <Card label="Tempo ligado" data={this.state.datetimeInfo}/>
+                <Card label="Tempo ligado" primaryData={this.state.datetimeInfo} secondaryData={this.state.datetime}/>
               </Content>
               :
               <Redirect to="/home"/>
