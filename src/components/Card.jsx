@@ -4,9 +4,14 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   font-size: 13pt;
   text-align: center;
-  width: 85%;
   display: flex;
   flex-direction: column;
+  @media (max-width: 767px) {
+    width: 85%;
+  }
+  @media (min-width: 768px) {
+    width: 40%;
+  }
 `
 
 const BACKGROUND_COLOR = '#DDD'
@@ -23,19 +28,18 @@ const Label = styled.span`
   border-top-right-radius: ${BORDER_RADIUS};
 `
 
+const BORDER_STYLE = '1px solid ' + BACKGROUND_COLOR
 const Data = styled.span`
   min-height: 4em;
   display: flex;
-  border-bottom: 1px solid ${BACKGROUND_COLOR};
-  border-right: 1px solid ${BACKGROUND_COLOR};
-  border-left: 1px solid ${BACKGROUND_COLOR};
+  border-bottom: ${BORDER_STYLE};
+  border-right: ${BORDER_STYLE};
+  border-left: ${BORDER_STYLE};
   justify-content: center;
   align-items: center;
   border-bottom-left-radius: ${BORDER_RADIUS};
   border-bottom-right-radius: ${BORDER_RADIUS};
 `
-
-
 
 class Card extends React.Component {
   render() {
