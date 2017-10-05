@@ -41,10 +41,10 @@ function _getDateTimeDiff(dateSource) {
     }
   }
   return (
-    (days ? `${days} dia${_getPlural(days)}, ` : '') +
-    (hours ? `${hours} hora${_getPlural(hours)}, ` : '') +
-    (minutes ? `${minutes} minuto${_getPlural(minutes)} e ` : '') +
-    `${seconds} segundo${_getPlural(seconds)}`
+    (days >= 1 ? `${days} dia${_getPlural(days)}, ` : '') +
+    (hours >= 1 ? `${hours} hora${_getPlural(hours)}, ` : '') +
+    (minutes >= 1 ? `${minutes} minuto ${_getPlural(minutes)} ${seconds >= 1 ? 'e ' : ''}` : '') +
+    (_seconds >= 1 ? `${seconds} segundo${_getPlural(seconds)}` : '-')
   )
 
   function _getPlural(value, plural) {
