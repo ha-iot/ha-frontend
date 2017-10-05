@@ -1,12 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
-import {FloatingActionButton} from "material-ui"
+import styled from 'styled-components'
 import {NavigationArrowBack} from "material-ui/svg-icons/index"
 
-import './LampData.scss'
+import Card from '../components/Card'
+import FloatingLinkButton from '../components/FloatingLinkButton'
 
 const DATA_WAIT_MESSAGE = 'Esperando dados...'
+
+const Wrapper = styled.div`
+  color: #666;
+`
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 function _getDateTimeDiff(dateSource) {
   const secondsDiff = new Date().getTime() - new Date(dateSource).getTime()
@@ -36,28 +46,35 @@ function _getDateTimeDiff(dateSource) {
     (minutes ? `${minutes} minuto${_getPlural(minutes)} e ` : '') +
     `${seconds} segundo${_getPlural(seconds)}`
   )
+
   function _getPlural(value, plural) {
     return value !== 1 ? plural || 's' : ''
   }
 }
 
+/**
+ * @returns {string}
+ * @private
+ */
 function _getDateTimeInfo() {
-  /**
-   * This "find" must be done because a new lamp list is sent, not an object
-   * @type {{isOn, number, upTime}}
-   */
-  const lamp = this.props.lamps.find(({number}) => number === +this.props.match.params.lampNumber)
+  const lamp = this.state.lamp
   // Check if "lamp" is valid because the app might open in this page
   // and might not been retrieved from socket yet.
-  return lamp ? (lamp.isOn ? 'Ligada há ' + _getDateTimeDiff(lamp.upTime) : 'Desligada') + '.' : DATA_WAIT_MESSAGE
+  return lamp ? lamp.isOn ? _getDateTimeDiff(lamp.upTime) : 'Desligada' : DATA_WAIT_MESSAGE
 }
 
 class LampData extends React.Component {
   constructor(props) {
     super(props)
 
+    /**
+     * This "find" must be done because a new lamp list is sent, not an object
+     * @returns {{isOn, number, upTime, label}}
+     */
+    this.getLamp = () => this.props.lamps.find(({number}) => number === +this.props.match.params.lampNumber)
     this.getDateTimeInfo = _getDateTimeInfo.bind(this)
     this.state = {
+      lamp: null,
       datetimeInfo: DATA_WAIT_MESSAGE,
       intervalUpdateId: null
     }
@@ -65,17 +82,24 @@ class LampData extends React.Component {
 
   componentWillMount() {
     this.setState({
+      lamp: this.getLamp(),
       datetimeInfo: this.getDateTimeInfo()
     })
   }
 
   componentDidMount() {
-    const intervalUpdateId = setInterval(() => {
-      this.setState({
-        datetimeInfo: this.getDateTimeInfo()
-      })
-    }, 1000)
+    _updateState.call(this)
+    const intervalUpdateId = setInterval(_updateState.bind(this), 1000)
     this.setState({intervalUpdateId})
+
+    function _updateState() {
+      const state = {datetimeInfo: this.getDateTimeInfo()}
+      const lamp = this.getLamp()
+      if (!this.state.lamp && lamp) {
+        state.lamp = lamp
+      }
+      this.setState(state)
+    }
   }
 
   componentWillUnmount() {
@@ -84,14 +108,18 @@ class LampData extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.datetimeInfo}
-        <Link to="/home" className="back_button">
-          <FloatingActionButton secondary={true}>
-            <NavigationArrowBack/>
-          </FloatingActionButton>
-        </Link>
-      </div>
+      <Wrapper>
+        {
+          this.state.lamp ?
+            <Content>
+              <h1>{this.state.lamp.label}</h1>
+              <Card label="Tempo ligado" data={this.state.datetimeInfo}/>
+            </Content>
+            :
+            <span>{DATA_WAIT_MESSAGE}</span>
+        }
+        <FloatingLinkButton to="/home" icon={NavigationArrowBack}/>
+      </Wrapper>
     )
   }
 }
