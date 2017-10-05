@@ -93,12 +93,10 @@ class LampData extends React.Component {
     this.setState({intervalUpdateId})
 
     function _updateState() {
-      const state = {datetimeInfo: this.getDateTimeInfo()}
-      const lamp = this.getLamp()
-      if (!this.state.lamp && lamp) {
-        state.lamp = lamp
-      }
-      this.setState(state)
+      this.setState({
+        lamp: this.getLamp(),
+        datetimeInfo: this.getDateTimeInfo()
+      })
     }
   }
 
