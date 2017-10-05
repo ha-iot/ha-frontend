@@ -81,23 +81,20 @@ class LampData extends React.Component {
   }
 
   componentWillMount() {
+    this._updateState()
+  }
+
+  componentDidMount() {
+    this._updateState()
+    const intervalUpdateId = setInterval(this._updateState.bind(this), 1000)
+    this.setState({intervalUpdateId})
+  }
+
+  _updateState() {
     this.setState({
       lamp: this.getLamp(),
       datetimeInfo: this.getDateTimeInfo()
     })
-  }
-
-  componentDidMount() {
-    _updateState.call(this)
-    const intervalUpdateId = setInterval(_updateState.bind(this), 1000)
-    this.setState({intervalUpdateId})
-
-    function _updateState() {
-      this.setState({
-        lamp: this.getLamp(),
-        datetimeInfo: this.getDateTimeInfo()
-      })
-    }
   }
 
   componentWillUnmount() {
