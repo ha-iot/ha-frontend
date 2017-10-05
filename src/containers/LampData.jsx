@@ -60,7 +60,7 @@ function _getDateTimeInfo() {
   const lamp = this.state.lamp
   // Check if "lamp" is valid because the app might open in this page
   // and might not been retrieved from socket yet.
-  return lamp ? lamp.isOn ? _getDateTimeDiff(lamp.upTime) : '-' : ''
+  return lamp && lamp.isOn ? _getDateTimeDiff(lamp.upTime) : '-'
 }
 
 class LampData extends React.Component {
@@ -75,7 +75,7 @@ class LampData extends React.Component {
     this.getDateTimeInfo = _getDateTimeInfo.bind(this)
     this.state = {
       lamp: null,
-      datetimeInfo: '',
+      datetimeInfo: '-',
       intervalUpdateId: null
     }
   }
