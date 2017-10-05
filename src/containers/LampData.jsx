@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import {Redirect} from 'react-router-dom'
 import {NavigationArrowBack} from "material-ui/svg-icons/index"
 
+import NoData from './NoData'
 import Card from '../components/Card'
 import FloatingLinkButton from '../components/FloatingLinkButton'
-
-const DATA_WAIT_MESSAGE = 'Esperando dados...'
 
 const Wrapper = styled.div`
   color: #666;
@@ -60,7 +60,7 @@ function _getDateTimeInfo() {
   const lamp = this.state.lamp
   // Check if "lamp" is valid because the app might open in this page
   // and might not been retrieved from socket yet.
-  return lamp ? lamp.isOn ? _getDateTimeDiff(lamp.upTime) : 'Desligada' : DATA_WAIT_MESSAGE
+  return lamp ? lamp.isOn ? _getDateTimeDiff(lamp.upTime) : '-' : ''
 }
 
 class LampData extends React.Component {
@@ -75,7 +75,7 @@ class LampData extends React.Component {
     this.getDateTimeInfo = _getDateTimeInfo.bind(this)
     this.state = {
       lamp: null,
-      datetimeInfo: DATA_WAIT_MESSAGE,
+      datetimeInfo: '',
       intervalUpdateId: null
     }
   }
@@ -110,13 +110,16 @@ class LampData extends React.Component {
     return (
       <Wrapper>
         {
-          this.state.lamp ?
-            <Content>
-              <h1>{this.state.lamp.label}</h1>
-              <Card label="Tempo ligado" data={this.state.datetimeInfo}/>
-            </Content>
+          this.props.lamps.raw ?
+            <NoData/>
             :
-            <span>{DATA_WAIT_MESSAGE}</span>
+            this.state.lamp ?
+              <Content>
+                <h1>{this.state.lamp.label}</h1>
+                <Card label="Tempo ligado" data={this.state.datetimeInfo}/>
+              </Content>
+              :
+              <Redirect to="/home"/>
         }
         <FloatingLinkButton to="/home" icon={NavigationArrowBack}/>
       </Wrapper>
