@@ -1,14 +1,32 @@
 import React from 'react'
+import styled from 'styled-components'
 
-import './NoLamps.scss'
+const _fontColor = '#666'
+
+const Wrapper = styled.div`
+  height: 14em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const Icon = styled.i`
+  font-size: 8em;
+  color: ${_fontColor};
+`
+
+const Span = styled.span`
+  color: ${_fontColor};
+`
 
 export default class NoLamps extends React.Component {
   render() {
     return (
-      <div className="no-lamps">
-        <i className="no-lamps__icon material-icons">sentiment_dissatisfied</i>
-        <span className="no-lamps__message">Não há lâmpadas conectadas.</span>
-      </div>
+      <Wrapper>
+        <Icon className="material-icons">sentiment_dissatisfied</Icon>
+        <Span>Não há lâmpadas conectadas.</Span>
+      </Wrapper>
     )
   }
 }
