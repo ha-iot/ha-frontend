@@ -14,3 +14,8 @@ require('whatwg-fetch')
 // Object.assign() is commonly used with React.
 // It will use the native implementation if it's present and isn't buggy.
 Object.assign = require('object-assign')
+
+// React 16 warnings solution: https://github.com/facebook/jest/issues/4545#issuecomment-332762365
+global.requestAnimationFrame = callback => {
+  setTimeout(callback, 0)
+}
