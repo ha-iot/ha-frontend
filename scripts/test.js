@@ -12,6 +12,9 @@ process.on('unhandledRejection', err => {
   throw err
 })
 
+process.env.SOCKET_PORT = 8123
+process.env.SOCKET_HOST = `http://localhost:${process.env.SOCKET_PORT}/`
+
 // Ensure environment variables are read.
 require('../config/env')
 
