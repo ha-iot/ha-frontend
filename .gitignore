@@ -3,5 +3,6 @@
 
 # Directories
 build/
+coverage/
 .idea/
 node_modules/
