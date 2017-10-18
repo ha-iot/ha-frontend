@@ -22,17 +22,31 @@ This is part of the **HAIoT System** for house automation.
 At the end of the next steps, a server will be up and running on your [local 3000 port](http://localhost:3000/)
 (but you can change this [at environment level](.env.example)).
 
+### Clone the repo
+
 ```bash
 git clone https://github.com/ha-iot/ha-frontend/
 cd ha-frontend
+```
+
+### Install the dependencies
+
+```bash
 npm i
+```
+
+### Start the server
+
+Before starting the server, you need to specify the socket server URL (see [.env.example](.env.example)). You can do so by setting the environment itself or creating a file named `.env` with your environment variables.
+
+```bash
 npm start
 ```
 
 [hardware_handler_link]: https://github.com/ha-iot/hardware-handler/
 [socket_server_link]: https://github.com/ha-iot/ha-socket-server/
 [travis_badge]: https://travis-ci.org/ha-iot/ha-frontend.svg?branch=master
-[travis_link]: https://travis-ci.org/ha-iot/ha-sfrontend
+[travis_link]: https://travis-ci.org/ha-iot/ha-frontend
 [codecov_badge]: https://codecov.io/gh/ha-iot/ha-frontend/branch/master/graph/badge.svg
 [codecov_link]: https://codecov.io/gh/ha-iot/ha-frontend
 [david_dependencies]: https://david-dm.org/ha-iot/ha-frontend.svg
