@@ -60,15 +60,17 @@ export default class App extends React.Component {
     const infoIcon = <ActionInfoOutline className="app-bar__info-icon"/>
     const _getAppBar = () => <AppBar title="HAIoT" className="app-bar" showMenuIconButton={false} iconElementRight={infoIcon}/>
     return (
-      <HashRouter>
-        <MuiThemeProvider>
-          <Route exact path="/" render={() => <Redirect to="/home"/>}/>
-          <Route path="/" render={_getAppBar}/>
-          <Route path="/home" render={() => <MenuTabs lamps={this.state.lamps}/>}/>
-          <Route path="/lamps/:lampNumber" render={({match}) => <LampData lamps={this.state.lamps} match={match}/>}/>
-          <Snackbar autoHideDuration={4000} onRequestClose={this.closeSnackbar} {...this.state.snackbar}/>
-        </MuiThemeProvider>
-      </HashRouter>
+      <MuiThemeProvider>
+        <HashRouter>
+	  <div>
+            <Route exact path="/" render={() => <Redirect to="/home"/>}/>
+            <Route path="/" render={_getAppBar}/>
+            <Route path="/home" render={() => <MenuTabs lamps={this.state.lamps}/>}/>
+            <Route path="/lamps/:lampNumber" render={({match}) => <LampData lamps={this.state.lamps} match={match}/>}/>
+            <Snackbar autoHideDuration={4000} onRequestClose={this.closeSnackbar} {...this.state.snackbar}/>
+	  </div>
+        </HashRouter>
+      </MuiThemeProvider>
     )
   }
 }
