@@ -61,6 +61,7 @@ class Card extends React.Component {
 Card.propTypes = {
   primaryData: PropTypes.string.isRequired,
   secondaryData: PropTypes.string,
+  label: PropTypes.string,
 }
 
 export default Card
