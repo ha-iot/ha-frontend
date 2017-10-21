@@ -16,6 +16,6 @@ require('whatwg-fetch')
 Object.assign = require('object-assign')
 
 // React 16 warnings solution: https://github.com/facebook/jest/issues/4545#issuecomment-332762365
-global.requestAnimationFrame = callback => {
+global.requestAnimationFrame = function (callback) {
   setTimeout(callback, 0)
 }
