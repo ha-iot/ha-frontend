@@ -1,8 +1,9 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import ReactDOM from 'react-dom'
 
 import NoData from './NoData'
 
 it('renders without crashing', () => {
-  mount(<NoData/>)
+  const div = document.createElement('div')
+  ReactDOM.render(<NoData/>, div)
 })

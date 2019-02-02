@@ -1,8 +1,9 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import ReactDOM from 'react-dom'
 
 import NoLamps from './NoLamps'
 
 it('renders without crashing', () => {
-  mount(<NoLamps/>)
+  const div = document.createElement('div')
+  ReactDOM.render(<NoLamps/>, div)
 })

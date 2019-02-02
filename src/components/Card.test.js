@@ -1,8 +1,12 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import ReactDOM from 'react-dom'
 
 import Card from './Card'
 
 it('renders without crashing', () => {
-  mount(<Card primaryData="Primary Info" secondaryData="Secondary Info" label="Label"/>)
+  const div = document.createElement('div')
+  ReactDOM.render(
+    <Card primaryData="Primary Info" secondaryData="Secondary Info" label="Label"/>,
+    div,
+  )
 })
