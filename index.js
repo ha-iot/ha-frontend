@@ -1,5 +1,3 @@
-require('dotenv').config({silent: true})
-
 const fs = require('fs')
 const path = require('path')
 
@@ -9,6 +7,8 @@ if (!fs.existsSync(BUILD_PATH)) {
   console.error('\nThis server is intended to run over a production build. Run "npm run build".\n')
   process.exit(0)
 }
+
+require('dotenv').config({silent: true})
 
 const express = require('express')
 const app = express()
