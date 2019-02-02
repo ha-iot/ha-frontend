@@ -1,3 +1,3 @@
 import io from 'socket.io-client'
 
-export default io.connect(process.env.SOCKET_HOST)
+export default io.connect(process.env.REACT_APP_SOCKET_HOST)
