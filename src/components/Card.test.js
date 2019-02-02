@@ -9,4 +9,5 @@ it('renders without crashing', () => {
     <Card primaryData="Primary Info" secondaryData="Secondary Info" label="Label"/>,
     div,
   )
+  ReactDOM.unmountComponentAtNode(div)
 })
