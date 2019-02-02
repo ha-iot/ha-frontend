@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {IconButton, RaisedButton} from 'material-ui'
 
@@ -81,13 +82,21 @@ function Buttons() {
   return <ButtonsWrapper>{buttons}</ButtonsWrapper>
 }
 
-function LampsView(props) {
+function GeneralView(props) {
   return (
     <Root>
       <Lamps lamps={props.lamps}/>
-      <Buttons lamps={props.lamps}/>
+      <Buttons/>
     </Root>
   )
 }
 
-export default LampsView
+GeneralView.propTypes = {
+  lamps: PropTypes.arrayOf(
+    PropTypes.shape({
+      isOn: PropTypes.bool.isRequired,
+    })
+  ).isRequired
+}
+
+export default GeneralView

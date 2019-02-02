@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import {MuiThemeProvider} from 'material-ui/styles'
 import {ActionInfoOutline} from 'material-ui/svg-icons'
 import {AppBar as MuiAppBar, Snackbar} from 'material-ui'
 import {HashRouter, Redirect, Route} from 'react-router-dom'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import MenuTabs from './Tabs'
 import LampData from './LampData'

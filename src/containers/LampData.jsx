@@ -122,9 +122,17 @@ class LampData extends React.Component {
 LampData.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      lampNumber: PropTypes.string,
-    }),
-  }),
+      lampNumber: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  lamps: PropTypes.arrayOf(
+    PropTypes.shape({
+      isOn: PropTypes.bool.isRequired,
+      label: PropTypes.string.isRequired,
+      number: PropTypes.number.isRequired,
+      upTime: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 }
 
 export default LampData
