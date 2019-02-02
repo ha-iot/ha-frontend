@@ -118,9 +118,7 @@
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.2",
     "enzyme-to-json": "^3.1.4",
-    "node-sass": "^4.5.3",
     "react-test-renderer": "^16.0.0",
-    "sass-loader": "^6.0.6",
     "styled-components": "^2.2.1"
   }
 }

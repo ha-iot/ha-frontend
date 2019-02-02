@@ -1,44 +1,93 @@
 import React from 'react'
-import {RaisedButton, IconButton} from 'material-ui'
+import styled from 'styled-components'
+import {IconButton, RaisedButton} from 'material-ui'
 
-import './GeneralView.scss'
 import socket from '../socket'
+import {forDesktop, forMobile} from '../utils'
 
-export default class LampsView extends React.Component {
-  render() {
-    let lamps
-    const height = '4em'
+const yellow = '#d8d800'
+const buttonHeight = '4em'
+const generalMargin = '1em'
 
-    lamps = this.props.lamps.map((lamp, i) => {
-      let [iconClass, color] = lamp.isOn ? ['brightness_high', '#d8d800'/* yellow */] : ['brightness_low', 'grey']
-      return (
-        <IconButton key={i} className="general-view__lamps__lamp" iconClassName='material-icons' iconStyle={{color, height}}>
-          {iconClass}
-        </IconButton>
-      )
-    })
+const Root = styled.div`
+  margin: ${generalMargin};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
-    const actionButtons = [
-      {action: 'toggle', label: 'Alternar lâmpadas'},
-      {action: 'on', label: 'Ligar lâmpadas'},
-      {action: 'off', label: 'Desligar lâmpadas'},
-    ]
-    const actionFactory = action => () => {
-      socket.emit('client/lampsAction', {target: 'all', action})
-    }
-    const buttons = actionButtons.map(({action, label}, i) =>
-      <RaisedButton key={i} className="general-view__buttons__button" onClick={actionFactory(action)} label={label} primary={true} style={{height}}/>
-    )
-
-    return (
-      <div className="general-view">
-        <div className="general-view__lamps">
-          {lamps}
-        </div>
-        <div className="general-view__buttons">
-          {buttons}
-        </div>
-      </div>
-    )
+const LampsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  ${forDesktop} {
+    width: 40%;  
   }
+  ${forMobile} {
+    width: 100%;  
+  }
+`
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  ${forDesktop} {
+    width: 40%;  
+  }
+  ${forMobile} {
+    width: 100%;  
+  }
+`
+
+const Button = styled(RaisedButton)`
+  width: 100%;
+  margin-top: ${generalMargin} !important;
+
+  button div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`
+
+function Lamps(props) {
+  const lamps = props.lamps.map((lamp, i) => {
+    let [iconClass, color] = lamp.isOn ? ['brightness_high', yellow] : ['brightness_low', 'grey']
+    return (
+      <IconButton key={i} iconClassName='material-icons' iconStyle={{color, height: buttonHeight}}>
+        {iconClass}
+      </IconButton>
+    )
+  })
+
+  return <LampsWrapper>{lamps}</LampsWrapper>
 }
+
+function Buttons() {
+  const actionButtons = [
+    {action: 'toggle', label: 'Alternar lâmpadas'},
+    {action: 'on', label: 'Ligar lâmpadas'},
+    {action: 'off', label: 'Desligar lâmpadas'},
+  ]
+
+  const actionFactory = action => () => {
+    socket.emit('client/lampsAction', {target: 'all', action})
+  }
+
+  const buttons = actionButtons.map(({action, label}, i) =>
+    <Button key={i} onClick={actionFactory(action)} label={label} primary={true} style={{height: buttonHeight}}/>,
+  )
+
+  return <ButtonsWrapper>{buttons}</ButtonsWrapper>
+}
+
+function LampsView(props) {
+  return (
+    <Root>
+      <Lamps lamps={props.lamps}/>
+      <Buttons lamps={props.lamps}/>
+    </Root>
+  )
+}
+
+export default LampsView
