@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
+import {muiThemeable} from 'material-ui/styles'
 import {IconButton, RaisedButton} from 'material-ui'
-import {muiThemeable} from "material-ui/styles"
 
 import socket from '../socket'
 import {forDesktop, forMobile} from '../utils'
@@ -64,7 +64,14 @@ const LampsWrapper = styled.div`
 function Buttons(props) {
   const buttons = props.lamps.map((lamp, i) => {
     const label = `${lamp.isOn ? 'Desligar' : 'Ligar'} ${lamp.label}`
-    return <Button key={i} primary={lamp.isOn} backgroundColor={greyColor} onClick={lampActionFactory(lamp.number)} label={label} style={{height}}/>
+    return (
+      <Button key={i}
+              label={label}
+              style={{height}}
+              primary={lamp.isOn}
+              backgroundColor={greyColor}
+              onClick={getLampAction(lamp.number)}/>
+    )
   })
 
   return <ButtonsWrapper>{buttons}</ButtonsWrapper>
@@ -98,7 +105,7 @@ function LampsView(props) {
 
 export default LampsView
 
-function lampActionFactory(lampNumber) {
+function getLampAction(lampNumber) {
   return () => {
     socket.emit('client/lampsAction', {target: lampNumber, action: 'toggle'})
   }

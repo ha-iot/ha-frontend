@@ -1,8 +1,8 @@
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
 
-const _fontColor = '#666'
-const _rotationKeyframe = keyframes`
+const fontColor = '#666'
+const rotationKeyframe = keyframes`
   from {
     transform: rotate(0deg);
   }
@@ -21,22 +21,22 @@ const Wrapper = styled.div`
 
 const Icon = styled.i`
   font-size: 8em;
-  animation: ${_rotationKeyframe} .8s linear infinite;
+  animation: ${rotationKeyframe} .8s linear infinite;
   animation-timing-function: ease;
-  color: ${_fontColor};
+  color: ${fontColor};
 `
 
 const Span = styled.span`
-  color: ${_fontColor};
+  color: ${fontColor};
 `
 
-export default class NoLamps extends React.Component {
-  render() {
-    return (
-      <Wrapper>
-        <Icon className="material-icons">refresh</Icon>
-        <Span>Aguardando dados...</Span>
-      </Wrapper>
-    )
-  }
+function NoLamps() {
+  return (
+    <Wrapper>
+      <Icon className="material-icons">refresh</Icon>
+      <Span>Aguardando dados...</Span>
+    </Wrapper>
+  )
 }
+
+export default NoLamps

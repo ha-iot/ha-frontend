@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {Redirect} from 'react-router-dom'
-import {NavigationArrowBack} from "material-ui/svg-icons/index"
+import {NavigationArrowBack} from 'material-ui/svg-icons'
 
 import NoData from './NoData'
 import Card from '../components/Card'
@@ -65,7 +65,7 @@ class LampData extends React.Component {
       lamp: null,
       datetime: '',
       datetimeInfo: '-',
-      intervalUpdateId: null
+      intervalUpdateId: null,
     }
   }
 
@@ -122,9 +122,9 @@ class LampData extends React.Component {
 LampData.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      lampNumber: PropTypes.string
-    })
-  })
+      lampNumber: PropTypes.string,
+    }),
+  }),
 }
 
 export default LampData

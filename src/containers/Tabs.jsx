@@ -8,28 +8,24 @@ import LampsView from './LampsView'
 import GeneralView from './GeneralView'
 
 export default class MenuTabs extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      slideIndex: 0
-    }
-  }
+  state = {slideIndex: 0}
 
   handleChange = (value) => {
     this.setState({slideIndex: value})
   }
 
   render() {
+    const {lamps} = this.props
+    const {slideIndex} = this.state
     return (
       <div>
-        <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
+        <Tabs onChange={this.handleChange} value={slideIndex}>
           <Tab label="Lâmpadas" value={0}/>
           <Tab label="Geral" value={1}/>
         </Tabs>
-        <SwipeableViews index={this.state.slideIndex} onChangeIndex={this.handleChange}>
-          {!this.props.lamps.raw ? this.props.lamps.length ? <LampsView lamps={this.props.lamps}/> : <NoLamps/> : <NoData/>}
-          {!this.props.lamps.raw ? this.props.lamps.length ? <GeneralView lamps={this.props.lamps}/> : <NoLamps/>: <NoData/>}
+        <SwipeableViews index={slideIndex} onChangeIndex={this.handleChange}>
+          {!lamps.raw ? lamps.length ? <LampsView lamps={lamps}/> : <NoLamps/> : <NoData/>}
+          {!lamps.raw ? lamps.length ? <GeneralView lamps={lamps}/> : <NoLamps/>: <NoData/>}
         </SwipeableViews>
       </div>
     )
