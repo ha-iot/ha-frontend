@@ -31,7 +31,6 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    socket.emit('general/specifyClient')
     socket.on('client/lampsState',
       /**
        * @param {{number, isOn, upTime}[]} data
