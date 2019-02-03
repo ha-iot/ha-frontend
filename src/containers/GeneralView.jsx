@@ -80,7 +80,7 @@ function Buttons() {
   ]
 
   const actionFactory = action => () => {
-    socket.emit('client/lampsAction', {target: 'all', action})
+    socket.triggerActionOnLamp({target: 'all', action})
   }
 
   const buttons = actionButtons.map(({action, label}, i) => (

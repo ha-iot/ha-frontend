@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    socket.on('client/lampsState',
+    socket.onLampsStateUpdate(
       /**
        * @param {{number, isOn, upTime}[]} data
        */
@@ -39,10 +39,10 @@ class App extends React.Component {
         this.setState({lamps: data})
       },
     )
-    socket.on('client/response', (data) => {
+    socket.onGeneralResponse(data => {
       this.showSnackbar(data.message)
     })
-    socket.emit('client/getLampsState')
+    socket.askForLampsState()
   }
 
   showSnackbar(message) {

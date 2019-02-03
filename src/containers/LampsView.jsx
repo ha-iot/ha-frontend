@@ -109,6 +109,6 @@ export default LampsView
 
 function getLampAction(lampNumber) {
   return () => {
-    socket.emit('client/lampsAction', {target: lampNumber, action: 'toggle'})
+    socket.triggerActionOnLamp({target: lampNumber, action: 'toggle'})
   }
 }
