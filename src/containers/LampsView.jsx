@@ -1,14 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
-import {muiThemeable} from 'material-ui/styles'
-import {IconButton, RaisedButton} from 'material-ui'
+import {Info as InfoIcon} from '@material-ui/icons'
+import {Button as MuiButton, IconButton as MuiIconButton} from '@material-ui/core'
 
 import socket from '../socket'
 import {forDesktop, forMobile} from '../utils'
 
 const height = '4em'
-const greyColor = 'grey'
 
 const Root = styled.div`
   display: flex;
@@ -20,6 +19,10 @@ const Root = styled.div`
   ${forDesktop} {
     justify-content: center;
   }
+`
+
+const IconButton = styled(MuiIconButton)`
+  height: 4em;
 `
 
 const ButtonsWrapper = styled.div`
@@ -34,7 +37,7 @@ const ButtonsWrapper = styled.div`
   }
 `
 
-const Button = styled(RaisedButton)`
+const Button = styled(MuiButton)`
   width: 100%;
 
   button div div {
@@ -66,11 +69,12 @@ function Buttons(props) {
     const label = `${lamp.isOn ? 'Desligar' : 'Ligar'} ${lamp.label}`
     return (
       <Button key={i}
-              label={label}
               style={{height}}
-              primary={lamp.isOn}
-              backgroundColor={greyColor}
-              onClick={getLampAction(lamp.number)}/>
+              variant="contained"
+              color={lamp.isOn ? 'primary' : undefined}
+              onClick={getLampAction(lamp.number)}>
+        {label}
+      </Button>
     )
   })
 
@@ -78,20 +82,18 @@ function Buttons(props) {
 }
 
 function Lamps(props) {
-  const lamps = props.lamps.map((lamp, i) => {
-    const color = lamp.isOn ? props.muiTheme.palette.primary1Color : greyColor
-    const iconStyle = {height, color}
-    return (
-      <Link key={i} to={'/lamps/' + lamp.number}>
-        <IconButton iconClassName="material-icons" iconStyle={iconStyle}>info</IconButton>
-      </Link>
-    )
-  })
+  const lamps = props.lamps.map((lamp, i) => (
+    <Link key={i} to={'/lamps/' + lamp.number}>
+      <IconButton color={lamp.isOn ? 'primary' : undefined}>
+        <InfoIcon/>
+      </IconButton>
+    </Link>
+  ))
 
   return <LampsWrapper>{lamps}</LampsWrapper>
 }
 
-const ThemedLamps = muiThemeable()(Lamps)
+const ThemedLamps = Lamps
 
 function LampsView(props) {
   const {lamps} = props

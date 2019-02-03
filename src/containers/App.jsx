@@ -1,27 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
-import {MuiThemeProvider} from 'material-ui/styles'
-import {ActionInfoOutline} from 'material-ui/svg-icons'
-import {AppBar as MuiAppBar, Snackbar} from 'material-ui'
+import {Snackbar} from '@material-ui/core'
 import {HashRouter, Redirect, Route} from 'react-router-dom'
 
 import MenuTabs from './Tabs'
-import LampData from './LampData'
 import socket from '../socket'
-
-const ActionInfoIcon = styled(ActionInfoOutline)`
-  height: 48px !important;
-  color: white !important;
-`
-
-function AppBar() {
-  return (
-    <MuiAppBar title="HAIoT"
-               className="app-bar"
-               showMenuIconButton={false}
-               iconElementRight={<ActionInfoIcon/>}/>
-  )
-}
+import LampData from './LampData'
+import AppBar from '../components/AppBar'
 
 class App extends React.Component {
   state = {
@@ -34,8 +18,8 @@ class App extends React.Component {
     },
   }
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.closeSnackbar = this.closeSnackbar.bind(this)
   }
@@ -71,17 +55,17 @@ class App extends React.Component {
   render() {
     const {lamps, snackbar} = this.state
     return (
-      <MuiThemeProvider>
+      <div>
         <HashRouter>
           <div>
             <Route exact path="/" render={() => <Redirect to="/home"/>}/>
             <Route path="/" render={AppBar}/>
             <Route path="/home" render={() => <MenuTabs lamps={lamps}/>}/>
             <Route path="/lamps/:lampNumber" render={({match}) => <LampData lamps={lamps} match={match}/>}/>
-            <Snackbar autoHideDuration={4000} onRequestClose={this.closeSnackbar} {...snackbar}/>
           </div>
         </HashRouter>
-      </MuiThemeProvider>
+        <Snackbar autoHideDuration={4000} onRequestClose={this.closeSnackbar} {...snackbar}/>
+      </div>
     )
   }
 }

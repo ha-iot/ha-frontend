@@ -2,20 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {Redirect} from 'react-router-dom'
-import {NavigationArrowBack} from 'material-ui/svg-icons'
+import {ArrowBack as ArrowBackIcon} from '@material-ui/icons'
 
 import NoData from './NoData'
 import Card from '../components/Card'
 import FloatingLinkButton from '../components/FloatingLinkButton'
 
 const Wrapper = styled.div`
+  margin-top: 3em;
   color: #666;
 `
 
 const Content = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
 `
 
 function _getDateTimeDiff(dateSource) {
@@ -113,7 +114,7 @@ class LampData extends React.Component {
               :
               <Redirect to="/home"/>
         }
-        <FloatingLinkButton to="/home" icon={NavigationArrowBack}/>
+        <FloatingLinkButton to="/home" icon={ArrowBackIcon}/>
       </Wrapper>
     )
   }

@@ -1,14 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {IconButton, RaisedButton} from 'material-ui'
+import {BrightnessHigh as MuiBrightnessHigh, BrightnessLow as MuiBrightnessLow} from '@material-ui/icons'
+import {IconButton, Button as MuiButton} from '@material-ui/core'
 
 import socket from '../socket'
 import {forDesktop, forMobile} from '../utils'
 
 const yellow = '#d8d800'
-const buttonHeight = '4em'
 const generalMargin = '1em'
+
+const BrightnessHigh = styled(MuiBrightnessHigh)`
+  color: ${yellow};
+`
+
+const BrightnessLow = styled(MuiBrightnessLow)`
+  color: grey;
+`
 
 const Root = styled.div`
   margin: ${generalMargin};
@@ -40,8 +48,9 @@ const ButtonsWrapper = styled.div`
   }
 `
 
-const Button = styled(RaisedButton)`
+const Button = styled(MuiButton)`
   width: 100%;
+  height: 4em;
   margin-top: ${generalMargin} !important;
 
   button div div {
@@ -53,10 +62,9 @@ const Button = styled(RaisedButton)`
 
 function Lamps(props) {
   const lamps = props.lamps.map((lamp, i) => {
-    let [iconClass, color] = lamp.isOn ? ['brightness_high', yellow] : ['brightness_low', 'grey']
     return (
-      <IconButton key={i} iconClassName='material-icons' iconStyle={{color, height: buttonHeight}}>
-        {iconClass}
+      <IconButton key={i}>
+        {lamp.isOn ? <BrightnessHigh/> : <BrightnessLow/>}
       </IconButton>
     )
   })
@@ -75,9 +83,11 @@ function Buttons() {
     socket.emit('client/lampsAction', {target: 'all', action})
   }
 
-  const buttons = actionButtons.map(({action, label}, i) =>
-    <Button key={i} onClick={actionFactory(action)} label={label} primary={true} style={{height: buttonHeight}}/>,
-  )
+  const buttons = actionButtons.map(({action, label}, i) => (
+    <Button variant="contained" key={i} onClick={actionFactory(action)} color="primary">
+      {label}
+    </Button>
+  ))
 
   return <ButtonsWrapper>{buttons}</ButtonsWrapper>
 }

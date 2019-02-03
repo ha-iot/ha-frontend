@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {MuiThemeProvider} from 'material-ui/styles'
 
 import LampData from './LampData'
 import {HashRouter} from 'react-router-dom'
@@ -20,11 +19,9 @@ it('renders without crashing', () => {
 
   const div = document.createElement('div')
   ReactDOM.render(
-    <MuiThemeProvider>
-      <HashRouter>
-        <LampData match={match} lamps={lamps}/>
-      </HashRouter>
-    </MuiThemeProvider>,
+    <HashRouter>
+      <LampData match={match} lamps={lamps}/>
+    </HashRouter>,
     div,
   )
   ReactDOM.unmountComponentAtNode(div)

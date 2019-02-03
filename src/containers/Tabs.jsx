@@ -1,16 +1,33 @@
 import React from 'react'
-import {Tabs, Tab} from 'material-ui'
+import styled from 'styled-components'
 import SwipeableViews from 'react-swipeable-views'
+import {Tab as MuiTab, Tabs as MuiTabs} from '@material-ui/core'
 
 import NoData from './NoData'
 import NoLamps from './NoLamps'
 import LampsView from './LampsView'
 import GeneralView from './GeneralView'
 
-export default class MenuTabs extends React.Component {
+const Root = styled.div`
+  margin-top: 3em;
+`
+
+const Tabs = styled(MuiTabs)`
+  width: 100%;
+`
+
+const Tab = styled(MuiTab)`
+  flex-grow: 1;
+`
+
+class MenuTabs extends React.Component {
   state = {slideIndex: 0}
 
-  handleChange = (value) => {
+  handleSwipe = value => {
+    this.setState({slideIndex: value})
+  }
+
+  handleTabClick = (e, value) => {
     this.setState({slideIndex: value})
   }
 
@@ -18,16 +35,22 @@ export default class MenuTabs extends React.Component {
     const {lamps} = this.props
     const {slideIndex} = this.state
     return (
-      <div>
-        <Tabs onChange={this.handleChange} value={slideIndex}>
-          <Tab label="Lâmpadas" value={0}/>
-          <Tab label="Geral" value={1}/>
+      <Root>
+        <Tabs value={slideIndex}
+              variant="fullWidth"
+              textColor="primary"
+              indicatorColor="primary"
+              onChange={this.handleTabClick}>
+          <Tab label="Lâmpadas"/>
+          <Tab label="Geral"/>
         </Tabs>
-        <SwipeableViews index={slideIndex} onChangeIndex={this.handleChange}>
+        <SwipeableViews index={slideIndex} onChangeIndex={this.handleSwipe}>
           {!lamps.raw ? lamps.length ? <LampsView lamps={lamps}/> : <NoLamps/> : <NoData/>}
-          {!lamps.raw ? lamps.length ? <GeneralView lamps={lamps}/> : <NoLamps/>: <NoData/>}
+          {!lamps.raw ? lamps.length ? <GeneralView lamps={lamps}/> : <NoLamps/> : <NoData/>}
         </SwipeableViews>
-      </div>
+      </Root>
     )
   }
 }
+
+export default MenuTabs

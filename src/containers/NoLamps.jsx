@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {SentimentDissatisfied} from '@material-ui/icons'
 
 const fontColor = '#666'
 
@@ -11,7 +12,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
-const Icon = styled.i`
+const Icon = styled(SentimentDissatisfied)`
   font-size: 8em;
   color: ${fontColor};
 `
@@ -23,7 +24,7 @@ const Span = styled.span`
 function NoLamps() {
   return (
     <Wrapper>
-      <Icon className="material-icons">sentiment_dissatisfied</Icon>
+      <Icon/>
       <Span>Não há lâmpadas conectadas.</Span>
     </Wrapper>
   )
