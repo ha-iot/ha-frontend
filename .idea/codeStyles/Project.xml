@@ -1,0 +1,19 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <HTMLCodeStyleSettings>
+      <option name="HTML_DO_NOT_INDENT_CHILDREN_OF" value="" />
+    </HTMLCodeStyleSettings>
+    <JSCodeStyleSettings>
+      <option name="USE_SEMICOLON_AFTER_STATEMENT" value="false" />
+      <option name="FORCE_SEMICOLON_STYLE" value="true" />
+      <option name="USE_DOUBLE_QUOTES" value="false" />
+      <option name="ENFORCE_TRAILING_COMMA" value="WhenMultiline" />
+    </JSCodeStyleSettings>
+    <codeStyleSettings language="JavaScript">
+      <indentOptions>
+        <option name="INDENT_SIZE" value="2" />
+        <option name="CONTINUATION_INDENT_SIZE" value="2" />
+      </indentOptions>
+    </codeStyleSettings>
+  </code_scheme>
+</component>
